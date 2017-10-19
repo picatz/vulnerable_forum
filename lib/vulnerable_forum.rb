@@ -22,6 +22,8 @@ end
 
 configure do
   enable :sessions
+  set :bind, '0.0.0.0'
+  set :port, 4567
 end
 
 before do 
@@ -72,7 +74,20 @@ post '/posts' do
   halt 404, "Not logged in!" unless session[:user_id]
   halt 404, "No title!" unless params[:title] and !params[:title].empty?
   halt 404, "No content!" unless params[:title] and !params[:content].empty?
-  VulnerableForum.db.query("INSERT INTO posts(user, title, content) VALUES(#{session[:user_id]}, #{params[:title]}, #{params[:content]})")
+  begin
+    VulnerableForum.db.query("INSERT INTO posts(user, title, content) VALUES(#{session[:user_id]}, \"#{params[:title]}\", \"#{params[:content]}\")")
+    halt 200, "Posted!\n"
+  rescue Mysql2::Error
+    halt 404, "Unable to post!\n"
+  end
+end
+
+get '/post/:id' do
+  if post = VulnerableForum.db.find_post(id: params[:id])
+    post["title"] + "\n" + post["content"] + "\n"
+  else
+    halt 404, "Unable to find post!\n"
+  end
 end
 
 get '/users' do
