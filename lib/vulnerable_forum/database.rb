@@ -26,6 +26,14 @@ module VulnerableForum
       self.query("SELECT * FROM users WHERE #{match} LIMIT 1").entries.first
     end
 
+    def self.find_post(**field)
+      key, value = field.first
+      key = key.to_s
+      value = "'#{value}'" unless value.is_a? Integer
+      match = "#{key} = #{value}"
+      self.query("SELECT * FROM posts WHERE #{match} LIMIT 1").entries.first
+    end
+
     def self.login(user, pass)
       q = "SELECT * FROM users WHERE user_name='#{user}' AND password='#{pass}' LIMIT 1"
       if user = self.query(q).entries.first
