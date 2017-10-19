@@ -1,5 +1,4 @@
 # Vulnerable Forum
-
 This is a vulnerable web forum to act as dummy application to be the punching bag for whilst doing my ethical hacking lab for class.
 
 ## Installation
@@ -43,7 +42,3 @@ Stored XXS attacks are fun, huh?:
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the VulnerableForum project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/vulnerable_forum/blob/master/CODE_OF_CONDUCT.md).
